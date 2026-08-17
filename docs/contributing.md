@@ -3,7 +3,7 @@
 ## Local setup
 
 ```sh
-git clone https://github.com/lalba-anthony/hexasky.git
+git clone https://github.com/LalbaAnthony/hexasky.git
 cd hexasky
 git checkout develop
 npm ci

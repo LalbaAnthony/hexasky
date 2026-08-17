@@ -35,13 +35,13 @@
   },
   "license": "MIT",
   "author": "Anthony Lalba",
-  "homepage": "https://github.com/lalba-anthony/hexasky#readme",
+  "homepage": "https://github.com/LalbaAnthony/hexasky#readme",
   "bugs": {
-    "url": "https://github.com/lalba-anthony/hexasky/issues"
+    "url": "https://github.com/LalbaAnthony/hexasky/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lalba-anthony/hexasky.git"
+    "url": "git+https://github.com/LalbaAnthony/hexasky.git"
   },
   "scripts": {
     "build": "tsc",
