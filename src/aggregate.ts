@@ -1,8 +1,4 @@
-import type {
-  DailyAggregates,
-  NumericSeries,
-  RawHourlyBlock,
-} from './types/weather.js';
+import type { DailyAggregates, NumericSeries, RawHourlyBlock, } from './types/weather.js';
 
 const isoDateLength = 10;
 
