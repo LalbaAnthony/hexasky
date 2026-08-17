@@ -52,6 +52,46 @@ tarball. `publishConfig.provenance` in `package.json` requests the same thing.
 `publishConfig.access` is `public`. Scoped packages default to `restricted`, and
 the publish step fails without it.
 
+### Why the token is exported twice
+
+The release step exports the same secret as both `NPM_TOKEN` and
+`NODE_AUTH_TOKEN`. Both are required, for different consumers.
+
+`actions/setup-node` with `registry-url` writes a temporary npmrc and points
+`NPM_CONFIG_USERCONFIG` at it:
+
+```
+//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}
+registry=https://registry.npmjs.org/
+always-auth=true
+```
+
+`@semantic-release/npm` reads that file with `rc`, which parses INI but does not
+expand environment variables. It therefore sees the literal string
+`${NODE_AUTH_TOKEN}` as an already-configured auth token, takes its early return
+in `set-npmrc-auth.js`, copies the file as-is, and never writes `NPM_TOKEN`.
+`npm whoami` then expands the placeholder against the real environment. If
+`NODE_AUTH_TOKEN` is unset, it expands to nothing, authentication fails, and
+semantic-release reports `EINVALIDNPMTOKEN` even though `NPM_TOKEN` is set
+correctly.
+
+The tell in the log is that `Wrote NPM_TOKEN to <path>` never appears; instead
+there is a `Reading npm config from /home/runner/work/_temp/.npmrc` line
+followed by the failure.
+
+### Trusted publishing
+
+`@semantic-release/npm` attempts OIDC trusted publishing before falling back to
+token auth: it exchanges the GitHub Actions ID token for a short-lived registry
+token and skips `NPM_TOKEN` entirely. That path only works once the package
+exists on npm and a trusted publisher is configured for it, so the first release
+must go through `NPM_TOKEN`.
+
+After the first successful publish, configure this repository and the
+`.github/workflows/release.yml` workflow as a trusted publisher on the package
+settings page on npmjs.com. Both token variables can then be removed from the
+workflow; `id-token: write` is already granted.
+
 ## Verifying a published version
 
 ```sh
