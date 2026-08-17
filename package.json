@@ -1,6 +1,6 @@
 {
   "name": "@lalba-anthony/hexasky",
-  "version": "0.0.0-development",
+  "version": "1.0.0",
   "description": "Print the French weather forecast from your terminal",
   "keywords": [
     "cli",
