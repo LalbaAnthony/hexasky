@@ -42,6 +42,7 @@ limited to metropolitan and overseas France.
 - [Architecture](docs/architecture.md) -- module graph and design decisions
 - [External APIs](docs/external-apis.md) -- Geoplateforme and Open-Meteo contracts
 - [Contributing](docs/contributing.md) -- branching, commits, project rules
+- [Git](docs/git.md) -- how to use Git with this project
 - [Release](docs/release.md) -- how publication is automated
 
 ## License
