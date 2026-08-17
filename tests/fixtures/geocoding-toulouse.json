@@ -1,0 +1,32 @@
+{
+  "type": "FeatureCollection",
+  "version": "draft",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [1.44305, 43.604462]
+      },
+      "properties": {
+        "label": "Toulouse",
+        "score": 0.87,
+        "id": "31555",
+        "type": "municipality",
+        "name": "Toulouse",
+        "postcode": "31000",
+        "citycode": "31555",
+        "x": 574141.85,
+        "y": 6279494.63,
+        "population": 504078,
+        "city": "Toulouse",
+        "context": "31, Haute-Garonne, Occitanie",
+        "importance": 0.7563
+      }
+    }
+  ],
+  "attribution": "IGN",
+  "licence": "ETALAB-2.0",
+  "query": "Toulouse",
+  "limit": 1
+}
