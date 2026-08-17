@@ -8,12 +8,7 @@ export { renderForecast, currentDateInTimeZone } from './render.js';
 export { aggregateHourlyBlock, meansByDate, roundedMeansForDates } from './aggregate.js';
 export { describeWeatherCode, toCompassDirection } from './weather-codes.js';
 export { createTheme, isColorSupported } from './theme.js';
-export {
-  HexaskyError,
-  UsageError,
-  GeocodingError,
-  WeatherError,
-} from './errors.js';
+export { HexaskyError, UsageError, GeocodingError, WeatherError, } from './errors.js';
 export { packageVersion } from './version.js';
 export type * from './types/index.js';
 
