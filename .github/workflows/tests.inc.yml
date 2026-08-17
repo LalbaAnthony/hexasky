@@ -1,10 +1,13 @@
-name: CI
+name: Tests
 
 on:
-  push:
-    branches: [develop]
-  pull_request:
-    branches: [develop, main]
+  workflow_call:
+    inputs:
+      node-version:
+        description: Node version used to lint, typecheck, test and build
+        type: string
+        required: false
+        default: "22"
 
 permissions:
   contents: read
@@ -21,7 +24,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: ${{ inputs.node-version }}
           cache: npm
 
       - name: Install dependencies

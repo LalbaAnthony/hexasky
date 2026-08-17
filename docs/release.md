@@ -6,19 +6,31 @@ disk: the real version is computed at release time from the commit history.
 
 ## Trigger
 
-A push to `main` runs `.github/workflows/release.yml`. Merging `develop` into
-`main` is therefore the only action needed to cut a release.
+A push to `main` runs `.github/workflows/release.flow.yml`. Merging `develop`
+into `main` is therefore the only action needed to cut a release.
 
-Pushes and pull requests targeting `develop` run `.github/workflows/ci.yml`,
-which lints, typechecks, tests and builds but never publishes.
+Pushes and pull requests targeting `develop` run
+`.github/workflows/ci.flow.yml`, which lints, typechecks, tests and builds but
+never publishes.
+
+Both workflows delegate that verification to the reusable workflow
+`.github/workflows/tests.inc.yml`. See [The shared verification
+workflow](#the-shared-verification-workflow).
 
 ## What happens on a merge to `main`
 
-1. Checkout with `fetch-depth: 0` (semantic-release needs the full history to
-   read the previous tags) and `persist-credentials: false`.
-2. Node 22 with `registry-url: https://registry.npmjs.org`.
-3. `npm ci`, `npm run lint`, `npm run typecheck`, `npm test`, `npm run build`.
-4. `npx semantic-release`.
+1. The `verify` job calls `tests.inc.yml`: checkout, Node 22, `npm ci`,
+   `npm run lint`, `npm run typecheck`, `npm test`, `npm run build`.
+2. The `release` job waits on `verify` through `needs`, then checks out with
+   `fetch-depth: 0` (semantic-release needs the full history to read the
+   previous tags) and `persist-credentials: false`.
+3. Node 22 with `registry-url: https://registry.npmjs.org`.
+4. `npm ci`, `npm run build`.
+5. `npx semantic-release`.
+
+The `release` job rebuilds because it runs on its own runner: nothing produced
+by `verify` is carried over, and `dist/` is gitignored, so the publish would
+otherwise depend entirely on the `prepack` script.
 
 semantic-release then runs its plugin chain:
 
@@ -88,9 +100,40 @@ exists on npm and a trusted publisher is configured for it, so the first release
 must go through `NPM_TOKEN`.
 
 After the first successful publish, configure this repository and the
-`.github/workflows/release.yml` workflow as a trusted publisher on the package
-settings page on npmjs.com. Both token variables can then be removed from the
-workflow; `id-token: write` is already granted.
+`.github/workflows/release.flow.yml` workflow as a trusted publisher on the
+package settings page on npmjs.com. The filename must match exactly, and it is
+the workflow that runs `semantic-release` that has to be registered, not
+`tests.inc.yml`. Both token variables can then be removed from the workflow;
+`id-token: write` is already granted.
+
+## The shared verification workflow
+
+`.github/workflows/tests.inc.yml` holds the lint, typecheck, test and build
+sequence once. It is a reusable workflow (`on: workflow_call`), so it never
+triggers on its own; `ci.flow.yml` and `release.flow.yml` both call it with:
+
+```yaml
+jobs:
+  verify:
+    name: Verify
+    uses: ./.github/workflows/tests.inc.yml
+```
+
+It accepts one optional input, `node-version`, defaulting to `"22"`.
+
+Two consequences of the reusable-workflow form:
+
+- A calling job cannot mix `uses:` with its own `steps:`, so the verification
+  always runs as a separate job on a separate runner. In `release.flow.yml` the
+  publish job depends on it through `needs: verify`.
+- Nothing crosses that job boundary. Neither `node_modules/` nor `dist/`
+  reaches the publish job, which is why it repeats `npm ci` and
+  `npm run build`.
+
+`tests.inc.yml` declares `permissions: contents: read`. A called workflow may
+only narrow the caller's permissions, never widen them, so the verification job
+does not inherit the write scopes that `release.flow.yml` grants at the top
+level.
 
 ## Verifying a published version
 

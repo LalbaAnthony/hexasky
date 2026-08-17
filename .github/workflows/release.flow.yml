@@ -11,8 +11,13 @@ permissions:
   id-token: write
 
 jobs:
+  verify:
+    name: Verify
+    uses: ./.github/workflows/tests.inc.yml
+
   release:
-    name: Verify and publish
+    name: Publish
+    needs: verify
     runs-on: ubuntu-latest
 
     steps:
@@ -31,15 +36,6 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-
-      - name: Lint
-        run: npm run lint
-
-      - name: Typecheck
-        run: npm run typecheck
-
-      - name: Test
-        run: npm test
 
       - name: Build
         run: npm run build

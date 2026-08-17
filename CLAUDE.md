@@ -10,7 +10,8 @@ colorized table to stdout, and exits.
 ## Layout
 
 ```
-.github/workflows/   ci.yml (develop), release.yml (main)
+.github/workflows/   ci.flow.yml (develop), release.flow.yml (main),
+                     tests.inc.yml (reusable verify job, called by both)
 docs/                architecture.md, usage.md, external-apis.md, contributing.md, release.md
 src/
   cli.ts             bin entry, shebang, exactly one try/catch
