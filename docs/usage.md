@@ -21,11 +21,11 @@ Geoplateforme, which holds no data outside French territory.
 
 ## Flags
 
-| Flag | Effect |
-| --- | --- |
-| `-h`, `--help` | Print usage to stdout and exit 0 |
-| `-v`, `--version` | Print the package version to stdout and exit 0 |
-| `--no-color` | Disable ANSI output regardless of terminal detection |
+| Flag              | Effect                                               |
+| ----------------- | ---------------------------------------------------- |
+| `-h`, `--help`    | Print usage to stdout and exit 0                     |
+| `-v`, `--version` | Print the package version to stdout and exit 0       |
+| `--no-color`      | Disable ANSI output regardless of terminal detection |
 
 Flags may appear anywhere in the argument list; the remaining positionals are
 still joined in order. To pass an address that begins with `-`, place it after
@@ -37,11 +37,11 @@ hexasky -- "--odd-place-name"
 
 ## Exit codes
 
-| Code | Condition |
-| --- | --- |
-| 0 | Success, or `--help` / `--version` |
-| 1 | Network error, timeout, non-2xx response, malformed payload, or no geocoding result |
-| 2 | Usage error: no positional argument, or an unknown flag |
+| Code | Condition                                                                           |
+| ---- | ----------------------------------------------------------------------------------- |
+| 0    | Success, or `--help` / `--version`                                                  |
+| 1    | Network error, timeout, non-2xx response, malformed payload, or no geocoding result |
+| 2    | Usage error: no positional argument, or an unknown flag                             |
 
 Errors are written to stderr as a single line, `hexasky: <message>`, in red when
 color is enabled. A usage error additionally prints the help block to stderr.
@@ -49,11 +49,11 @@ No stack trace is shown unless `HEXASKY_DEBUG=1` is set.
 
 ## Environment variables
 
-| Variable | Effect |
-| --- | --- |
-| `NO_COLOR` | Any non-empty value disables ANSI output (honored by picocolors) |
-| `FORCE_COLOR` | Any non-empty value enables ANSI output even when stdout is not a TTY |
-| `HEXASKY_DEBUG` | Set to `1` to print the error stack after the error line |
+| Variable        | Effect                                                                |
+| --------------- | --------------------------------------------------------------------- |
+| `NO_COLOR`      | Any non-empty value disables ANSI output (honored by picocolors)      |
+| `FORCE_COLOR`   | Any non-empty value enables ANSI output even when stdout is not a TTY |
+| `HEXASKY_DEBUG` | Set to `1` to print the error stack after the error line              |
 
 `--no-color` overrides `FORCE_COLOR`: the flag forces plain output
 unconditionally.

@@ -26,11 +26,11 @@ Adresse Nationale data with the same GeoJSON response shape.
 
 ### Parameters
 
-| Parameter | Value | Notes |
-| --- | --- | --- |
-| `q` | the joined address | URL-encoded by `URLSearchParams` |
-| `limit` | `1` | only the best match is used |
-| `index` | `address` | address index rather than parcel or POI |
+| Parameter | Value              | Notes                                   |
+| --------- | ------------------ | --------------------------------------- |
+| `q`       | the joined address | URL-encoded by `URLSearchParams`        |
+| `limit`   | `1`                | only the best match is used             |
+| `index`   | `address`          | address index rather than parcel or POI |
 
 ### Rate limit
 
@@ -90,18 +90,18 @@ GET https://api.open-meteo.com/v1/forecast
 
 ### Parameters
 
-| Parameter | Value |
-| --- | --- |
-| `latitude` | from geocoding |
-| `longitude` | from geocoding |
-| `current` | `temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,surface_pressure,wind_speed_10m,wind_direction_10m` |
-| `daily` | `weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max,wind_direction_10m_dominant` |
-| `hourly` | `relative_humidity_2m,surface_pressure` |
-| `forecast_days` | `7` |
-| `timezone` | `auto` |
-| `temperature_unit` | `celsius` |
-| `wind_speed_unit` | `kmh` |
-| `precipitation_unit` | `mm` |
+| Parameter            | Value                                                                                                                                               |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `latitude`           | from geocoding                                                                                                                                      |
+| `longitude`          | from geocoding                                                                                                                                      |
+| `current`            | `temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,surface_pressure,wind_speed_10m,wind_direction_10m`            |
+| `daily`              | `weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max,wind_direction_10m_dominant` |
+| `hourly`             | `relative_humidity_2m,surface_pressure`                                                                                                             |
+| `forecast_days`      | `7`                                                                                                                                                 |
+| `timezone`           | `auto`                                                                                                                                              |
+| `temperature_unit`   | `celsius`                                                                                                                                           |
+| `wind_speed_unit`    | `kmh`                                                                                                                                               |
+| `precipitation_unit` | `mm`                                                                                                                                                |
 
 The query string is built with `URLSearchParams`; URLs are never concatenated by
 hand. `tests/weather.test.ts` asserts the exact value of every parameter and

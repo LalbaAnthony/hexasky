@@ -13,15 +13,15 @@ Node 22 or newer is required (`engines.node` is `>=22`). The package is ESM only
 
 ## Commands
 
-| Command | Purpose |
-| --- | --- |
-| `npm run lint` | ESLint over the whole repository |
-| `npm run lint:fix` | ESLint with `--fix` |
-| `npm run typecheck` | `tsc --noEmit` over `src` |
-| `npm test` | Vitest, single run |
-| `npm run test:watch` | Vitest in watch mode |
-| `npm run build` | `tsc` into `dist/` |
-| `npm run dev` | `tsc --watch` |
+| Command              | Purpose                          |
+| -------------------- | -------------------------------- |
+| `npm run lint`       | ESLint over the whole repository |
+| `npm run lint:fix`   | ESLint with `--fix`              |
+| `npm run typecheck`  | `tsc --noEmit` over `src`        |
+| `npm test`           | Vitest, single run               |
+| `npm run test:watch` | Vitest in watch mode             |
+| `npm run build`      | `tsc` into `dist/`               |
+| `npm run dev`        | `tsc --watch`                    |
 
 Run this before every commit:
 
@@ -31,10 +31,10 @@ npm run lint && npm run typecheck && npm test
 
 ## Branching model
 
-| Branch | Role |
-| --- | --- |
+| Branch    | Role                                                                                             |
+| --------- | ------------------------------------------------------------------------------------------------ |
 | `develop` | Default branch. All work lands here. CI runs lint, typecheck, test, build. Nothing is published. |
-| `main` | Production. A merge into `main` triggers semantic-release. |
+| `main`    | Production. A merge into `main` triggers semantic-release.                                       |
 
 Feature work branches off `develop` and is merged back into `develop`. When a
 release is wanted, `develop` is merged into `main`.
@@ -44,12 +44,12 @@ release is wanted, `develop` is merged into `main`.
 Commit messages follow [Conventional Commits](https://www.conventionalcommits.org).
 semantic-release derives the next version from them:
 
-| Prefix | Release |
-| --- | --- |
-| `fix:` | patch |
-| `feat:` | minor |
-| `BREAKING CHANGE:` in the footer | major |
-| `chore:`, `docs:`, `test:`, `refactor:`, `ci:`, `build:`, `style:`, `perf:` | none |
+| Prefix                                                                      | Release |
+| --------------------------------------------------------------------------- | ------- |
+| `fix:`                                                                      | patch   |
+| `feat:`                                                                     | minor   |
+| `BREAKING CHANGE:` in the footer                                            | major   |
+| `chore:`, `docs:`, `test:`, `refactor:`, `ci:`, `build:`, `style:`, `perf:` | none    |
 
 ```
 feat(render): add a compass column to the daily table

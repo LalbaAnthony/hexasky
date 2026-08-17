@@ -22,14 +22,14 @@ which lints, typechecks, tests and builds but never publishes.
 
 semantic-release then runs its plugin chain:
 
-| Plugin | Effect |
-| --- | --- |
-| `@semantic-release/commit-analyzer` | Derives the next version from the Conventional Commits since the last tag. |
-| `@semantic-release/release-notes-generator` | Renders the release notes. |
-| `@semantic-release/changelog` | Writes those notes into `CHANGELOG.md`. |
-| `@semantic-release/npm` | Sets the version in `package.json` and publishes to npm. |
-| `@semantic-release/git` | Commits `CHANGELOG.md` and `package.json` back to `main` as `chore(release): <version> [skip ci]`. |
-| `@semantic-release/github` | Creates the GitHub release and tag, and comments on the related issues and pull requests. |
+| Plugin                                      | Effect                                                                                             |
+| ------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `@semantic-release/commit-analyzer`         | Derives the next version from the Conventional Commits since the last tag.                         |
+| `@semantic-release/release-notes-generator` | Renders the release notes.                                                                         |
+| `@semantic-release/changelog`               | Writes those notes into `CHANGELOG.md`.                                                            |
+| `@semantic-release/npm`                     | Sets the version in `package.json` and publishes to npm.                                           |
+| `@semantic-release/git`                     | Commits `CHANGELOG.md` and `package.json` back to `main` as `chore(release): <version> [skip ci]`. |
+| `@semantic-release/github`                  | Creates the GitHub release and tag, and comments on the related issues and pull requests.          |
 
 All six are required. Without `changelog` there is no `CHANGELOG.md`; without
 `npm` nothing is published; without `git` the changelog is never committed back;
@@ -40,10 +40,10 @@ exits successfully without publishing.
 
 ## Required secrets
 
-| Secret | Purpose |
-| --- | --- |
+| Secret         | Purpose                                                                                                                  |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | `GITHUB_TOKEN` | Provided automatically by Actions. The workflow grants it `contents: write`, `issues: write` and `pull-requests: write`. |
-| `NPM_TOKEN` | An npm automation token with publish rights on the `@lalba-anthony` scope. Set it in the repository secrets. |
+| `NPM_TOKEN`    | An npm automation token with publish rights on the `@lalba-anthony` scope. Set it in the repository secrets.             |
 
 The workflow also requests `id-token: write` and sets `NPM_CONFIG_PROVENANCE:
 true`, which makes npm attach a signed provenance statement to the published
